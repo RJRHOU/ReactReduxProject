@@ -1,9 +1,29 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import style from './SingleItem.module.css'
-import { addToCart } from '../../redux/Shopping/shopping-actions'; 
+import { addToCart, adjustQty } from '../../redux/Shopping/shopping-actions'; 
+import { useSelector } from 'react-redux';
 
-const SingleItem =({currentItem, addToCart}) => {
+const SingleItem =() => {
+    const dispatch = useDispatch();
+
+    const currentItem = useSelector(state => state.shop.currentItem);
+    const cart = useSelector(state => state.shop.cart);
+
+    const adjustCart = item => {
+        const cartItem = cart.filter(product => product.id === item.id)
+        const isInCart = !!cartItem.length
+        if (!isInCart) {
+            item.qty = 1
+            addToCart(dispatch, item)
+        } else {
+            let cartCopy = cart.filter(cartItem => cartItem.id !== item.id)
+            cartItem[0].qty += 1
+            cartCopy.push(cartItem[0])
+            adjustQty(dispatch, cartCopy)
+        }
+    }
+
     return (
         <div className={style.product} >
            <img className={style.product_image}
@@ -19,7 +39,7 @@ const SingleItem =({currentItem, addToCart}) => {
                     $ {currentItem.price}
                 </p>
 
-                <button onClick={() => addToCart(currentItem.id)}>Add To Cart</button>
+                <button onClick={() => adjustCart(currentItem)}>Add To Cart</button>
             </div>
 
         </div>
@@ -29,16 +49,5 @@ const SingleItem =({currentItem, addToCart}) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        currentItem: state.shop.currentItem
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        addToCart: (id) => dispatch(addToCart(id))
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps) (SingleItem);
+export default SingleItem;
 

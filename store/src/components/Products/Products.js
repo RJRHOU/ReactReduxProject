@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Products.module.css'
-import { connect } from 'react-redux';
 import Inventory from "./Inventory"
+import { loadAllProducts } from '../../redux/Shopping/shopping-actions';
 
-const Products = ({products}) => {
+const Products = () => {
+  const dispatch = useDispatch();
+
+  const products = useSelector(state => state.shop.products);
+
+  const loadStore = async () => {
+    const apiData = await fetch("https://fakestoreapi.com/products")
+    const jsonData = await apiData.json()
+    loadAllProducts(dispatch, jsonData)
+};
+
+  useEffect(() => {
+    loadStore()
+  }, [])
+
   return (
-    <div classname = {styles.products}>
+    <div className = {styles.products}>
       {products.map((product) =>(
         <Inventory key={product.id} product={product}/>
       ))}
@@ -14,10 +29,5 @@ const Products = ({products}) => {
   );
 };
 
-const mapStateToProps =(state) => {
-  return {
-    products: state.shop.products,
-  };
-};
 
-export default connect(mapStateToProps)(Products);
+export default Products;

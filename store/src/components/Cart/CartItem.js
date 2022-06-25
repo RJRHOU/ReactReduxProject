@@ -1,20 +1,31 @@
 import React, {useState} from "react";
 import style from './Cart.module.css'
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    adjustQty,
-    removeFromCart,
+    adjustQty
     
 } from "../../redux/Shopping/shopping-actions"; 
 
-const CartItem = ({ item, adjustQty, removeFromCart}) => {
-    const [input, setInput] = useState(item.qty);
+const CartItem = ({ item }) => {
+    const dispatch = useDispatch();
+
+    const [input, setInput] = useState(item.qty)
+    const cart = useSelector(state => state.shop.cart)
 
     const onChangeHandler = (e) => {
+        const cartItem = cart.filter(product => product.id === item.id)
+        let cartCopy = cart.filter(cartItem => cartItem.id !== item.id)
+        cartItem[0].qty = e.target.value
+        cartCopy.push(cartItem[0])
         setInput(e.target.value);
-        adjustQty(item.id, e.target.value);
+        adjustQty(dispatch, cartCopy);
     };
+
+    const removeFromCart = (itemId) => {
+        const newCart = cart.filter(item => item.id !== itemId)
+        adjustQty(dispatch, newCart)
+    }
 
     return(
         <div className={style.product}>
@@ -55,12 +66,5 @@ const CartItem = ({ item, adjustQty, removeFromCart}) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        adjustQty: (id,value) => dispatch(adjustQty(id, value)),
-        removeFromCart: (id) => dispatch(removeFromCart(id)),
 
-    };
-};
-
-export default connect(null, mapDispatchToProps)(CartItem);
+export default CartItem;
