@@ -21,11 +21,11 @@ const Navbar = ( {cart} ) => {
     return (
         <nav  className={style.navbar}>
         
-        <Link to='/home' className={style.navlogo} >
+        <Link to='/' className={style.navlogo} >
             <h2  >HOT MESS</h2>
         </Link>
 
-        <Link to='/' className={style.navlink}>
+        <Link to='/products' className={style.navlink}>
             <h3 >Shop</h3>
         </Link>
 
