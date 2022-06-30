@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import axios from 'axios';
-import Cart from './Cart/Cart';
-import { totalCartPrice, totalPrice } from '../redux/Shopping/shopping-actions';
+//import Cart from './Cart/Cart';
+//import { totalCartPrice, totalPrice } from '../redux/Shopping/shopping-actions';
 //
-import { useDispatch, useSelector } from 'react-redux';
+
 
 
 const CARD_OPTIONS = {
@@ -27,39 +27,29 @@ const CARD_OPTIONS = {
 	}
 }
 
-export default function PaymentForm() {
+export default function PaymentForm({totalAmt}) {
     const[success, setSucces] = useState(false )
    
     const stripe = useStripe()
     const elements = useElements()
-    const dispatch = useDispatch()
-    const totalPrice = useSelector((state) => state)
-    let totalAmt = 0
+    //const dispatch = useDispatch()
     
-    const sumPrices =  async() => {
-
-        console.log(totalPrice.shop.cart, "Before")
-        totalPrice.shop.cart.map((c) => {
-            console.log(c.price, totalAmt, " Item price")
-            totalAmt += c.price 
-        })
-
-    }
-
-    useEffect(() => {
-        sumPrices()
-    }, [])
+    
+    useEffect(() =>{
+        console.log(totalAmt)
+    })
+       
 
     const handleSubmit = async (e) => {
-        console.log(totalAmt, "totalAmt")
+        console.log(totalAmt, "totalAmt ")
         e.preventDefault()
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardElement)
         })
     
-
-    if(!error && totalAmt !==0) {
+        //console.log(error, totalAmt)
+    if(!error && error === undefined && totalAmt !==0) {
         console.log(typeof totalAmt, "random" )
         try{
             const {id} = paymentMethod
@@ -69,14 +59,14 @@ export default function PaymentForm() {
             })
 
             if(response.data.success) {
-                console.log("Successful payment")
+                console.log("Successful payment ")
                 setSucces(true)
             }
         } catch (error) {
             console.log("Error", error)
         }
     } else {
-        console.log(error.message)
+        console.log("Error Encountered: error= ", error, " totalAmt= ", totalAmt)
     }
 }
 
