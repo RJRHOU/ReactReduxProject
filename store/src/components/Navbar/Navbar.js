@@ -12,7 +12,7 @@ const Navbar = ( {cart} ) => {
    useEffect (() => {
         let count =0;
         cart.forEach((item) => {
-            count += (item.qty  *1);
+            count += (item.qty  * 1);
         } );
 
         setCartCount(count);

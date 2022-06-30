@@ -4,6 +4,9 @@ import style from './SingleItem.module.css'
 import { addToCart, adjustQty } from '../../redux/Shopping/shopping-actions'; 
 import { useSelector } from 'react-redux';
 
+
+//loads current item for a larger image on new page, but still allows user to add to cart
+
 const SingleItem =() => {
     const dispatch = useDispatch();
 

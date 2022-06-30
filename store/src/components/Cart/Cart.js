@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 
-
+//setting useState for the cart total and item totals
 const Cart = () => {
   const cart = useSelector(state => state.shop.cart);  
     const [totalPrice, setTotalPrice] = useState(0);
@@ -17,10 +17,11 @@ const Cart = () => {
             price += item.qty * item.price;
         });
         
-        setTotalItems(cart.length );
+        setTotalItems( cart.length );
         setTotalPrice(price);
         }, [cart,totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
+//dsiplaying the cart items and cart totals        
         return (
             <div >
                 <div>

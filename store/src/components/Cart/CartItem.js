@@ -22,6 +22,7 @@ const CartItem = ({ item }) => {
         adjustQty(dispatch, cartCopy);
     };
 
+//removing items from cart    
     const removeFromCart = (itemId) => {
         const newCart = cart.filter(item => item.id !== itemId)
         adjustQty(dispatch, newCart)
