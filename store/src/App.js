@@ -30,7 +30,7 @@ function App({ currentItem }) {
           )}
           
          <Route exact path='/stripeContainer' component={StripeContainer}  />
-         {showItem ? <StripeContainer/> : <> <button onClick={() => setShowItem(true)}>Purchase</button> </>}
+         {/* {showItem ? <StripeContainer/> : <> <button onClick={() => setShowItem(true)}>Purchase</button> </>} */}
          
         
         </Switch>

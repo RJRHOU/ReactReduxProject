@@ -84,6 +84,7 @@ export default function PaymentForm({totalAmt}) {
            
         </fieldset>
         <div className='Cart_Total' >
+            {<p> Your total purchase is: ${totalAmt}  Enter card number to submit payment.</p>}
         <button>Submit Payment</button>
         {/* <Cart/> */}
         </div>
@@ -92,7 +93,7 @@ export default function PaymentForm({totalAmt}) {
     
      : <div> 
          <h2>
-             {`Your Purchase was Successful!`}
+             {`Your Purchase of ${totalAmt} was Successful!`}
          </h2>
      </div>
     }
