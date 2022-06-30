@@ -24,7 +24,7 @@ const Cart = () => {
 //dsiplaying the cart items and cart totals        
         return (
             <div >
-                <div>
+                <div className={style.product_image}>
                     {cart.map((item) => (
                         <CartItem key={item.id} item={item}/>
                     ) )}

@@ -16,9 +16,9 @@ export default function StripeContainer() {
   useEffect(() => {
     const sumPrices = () => {
       let amt=0
-      console.log(totalPrice.shop.cart, "Before");
+      
       totalPrice.shop.cart.map((c) => {
-        console.log(c.price, totalAmt, "Item price");
+        
         amt += c.price
 
       });
@@ -29,7 +29,7 @@ export default function StripeContainer() {
   }, []);
   return (
     <div>
-      {console.log(totalAmt, "stripe container")}
+      
    {totalAmt !== 0 && 
     <Elements stripe={stripeTestPromise}>
     <PaymentForm totalAmt={totalAmt} />

@@ -1,10 +1,6 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import axios from 'axios';
-//import Cart from './Cart/Cart';
-//import { totalCartPrice, totalPrice } from '../redux/Shopping/shopping-actions';
-//
-
 
 
 const CARD_OPTIONS = {
@@ -32,7 +28,7 @@ export default function PaymentForm({totalAmt}) {
    
     const stripe = useStripe()
     const elements = useElements()
-    //const dispatch = useDispatch()
+    
     
     
     useEffect(() =>{
@@ -41,16 +37,16 @@ export default function PaymentForm({totalAmt}) {
        
 
     const handleSubmit = async (e) => {
-        console.log(totalAmt, "totalAmt ")
+        
         e.preventDefault()
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardElement)
         })
     
-        //console.log(error, totalAmt)
+        
     if(!error && error === undefined && totalAmt !==0) {
-        console.log(typeof totalAmt, "random" )
+        
         try{
             const {id} = paymentMethod
             const response = await axios.post("http://localhost:4000/payment", {
@@ -84,9 +80,11 @@ export default function PaymentForm({totalAmt}) {
            
         </fieldset>
         <div className='Cart_Total' >
-            {<p> Your total purchase is: ${totalAmt}  Enter card number to submit payment.</p>}
-        <button>Submit Payment</button>
-        {/* <Cart/> */}
+                {<p> Your total purchase is: ${totalAmt}  
+                <div>Enter card number to submit payment. </div>
+                <button>Submit Payment</button></p>}
+        
+        
         </div>
     </form>
     

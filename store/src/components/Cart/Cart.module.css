@@ -1,5 +1,5 @@
 .info {
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -8,9 +8,10 @@
     width:40px;
 }
 .product_image {
-    width: 250px;
+    width: 150px;
     object-fit: contain;
     border-radius: 10px;
+    margin-left: 25%;
   }
 
   .product {
