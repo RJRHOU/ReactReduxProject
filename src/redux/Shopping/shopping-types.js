@@ -1,0 +1,6 @@
+export const ADD_TO_CART ='ADD_TO_CART';
+export const REMOVE_FROM_CART = 'EMOVE_FROM_CART';
+export const ADJUST_QTY = 'ADJUST_QT';
+export const LOAD_ALL_PRODUCTS = 'LOAD_ALL_PRODUCTS';
+export const LOAD_CURRENT_ITEM ='LOAD_CURRENT_ITEM';
+export const TOTAL_CART_PRICE = 'TOTAL_CART_PRICE';
